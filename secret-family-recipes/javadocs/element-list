@@ -1,8 +1,8 @@
-com.lambdaschool.foundation
-com.lambdaschool.foundation.config
-com.lambdaschool.foundation.controllers
-com.lambdaschool.foundation.exceptions
-com.lambdaschool.foundation.handlers
-com.lambdaschool.foundation.models
-com.lambdaschool.foundation.repository
-com.lambdaschool.foundation.services
+com.lambdaschool.secretfamilyrecipes
+com.lambdaschool.secretfamilyrecipes.config
+com.lambdaschool.secretfamilyrecipes.controllers
+com.lambdaschool.secretfamilyrecipes.exceptions
+com.lambdaschool.secretfamilyrecipes.handlers
+com.lambdaschool.secretfamilyrecipes.models
+com.lambdaschool.secretfamilyrecipes.repository
+com.lambdaschool.secretfamilyrecipes.services
