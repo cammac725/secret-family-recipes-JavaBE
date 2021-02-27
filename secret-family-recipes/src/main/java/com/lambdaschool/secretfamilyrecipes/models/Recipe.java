@@ -21,17 +21,13 @@ public class Recipe extends Auditable {
     @Column
     private String instructions;
 
-    @Column
-    private String ingredients;
-
     public Recipe() {
     }
 
-    public Recipe(@NotNull String name, String source, String instructions, String ingredients) {
+    public Recipe(@NotNull String name, String source, String instructions) {
         this.name = name;
         this.source = source;
         this.instructions = instructions;
-        this.ingredients = ingredients;
     }
 
     public long getRecipeid() {
@@ -66,11 +62,4 @@ public class Recipe extends Auditable {
         this.instructions = instructions;
     }
 
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
 }
