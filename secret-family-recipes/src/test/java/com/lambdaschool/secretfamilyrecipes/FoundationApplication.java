@@ -17,7 +17,7 @@ public class FoundationApplication
      */
     public static void main(String[] args)
     {
-        SpringApplication.run(FoundationApplication.class,
+        SpringApplication.run(SecretFamilyRecipesApplication.class,
             args);
     }
 }

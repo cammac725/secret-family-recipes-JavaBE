@@ -1,6 +1,6 @@
 package com.lambdaschool.secretfamilyrecipes.services;
 
-import com.lambdaschool.secretfamilyrecipes.FoundationApplication;
+import com.lambdaschool.secretfamilyrecipes.SecretFamilyRecipesApplication;
 import com.lambdaschool.secretfamilyrecipes.exceptions.ResourceNotFoundException;
 import com.lambdaschool.secretfamilyrecipes.models.Role;
 import com.lambdaschool.secretfamilyrecipes.models.User;
@@ -30,7 +30,7 @@ import static org.mockito.ArgumentMatchers.anyString;
  * This test class covers 100% of the methods and 100% of the lines in the UserServiceImpl.class
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = FoundationApplication.class)
+@SpringBootTest(classes = SecretFamilyRecipesApplication.class)
 public class UserServiceImplTest
 {
     @Autowired

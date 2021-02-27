@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  */
 @EnableJpaAuditing
 @SpringBootApplication
-public class FoundationApplication
+public class SecretFamilyRecipesApplication
 {
     /**
      * Connect to the system environment where environment variables live.
@@ -51,7 +51,7 @@ public class FoundationApplication
 
         if (!stop)
         {
-            SpringApplication.run(FoundationApplication.class,
+            SpringApplication.run(SecretFamilyRecipesApplication.class,
                 args);
         } else
         {

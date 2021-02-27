@@ -1,7 +1,7 @@
 package com.lambdaschool.secretfamilyrecipes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lambdaschool.secretfamilyrecipes.FoundationApplication;
+import com.lambdaschool.secretfamilyrecipes.SecretFamilyRecipesApplication;
 import com.lambdaschool.secretfamilyrecipes.models.Role;
 import com.lambdaschool.secretfamilyrecipes.models.User;
 import com.lambdaschool.secretfamilyrecipes.models.UserRoles;
@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 // mocking service to test controller
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = FoundationApplication.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SecretFamilyRecipesApplication.class)
 @AutoConfigureMockMvc
 @WithMockUser(username = "admin",
     roles = {"USER", "ADMIN"})
