@@ -15,6 +15,8 @@ public class Ingredient extends Auditable {
     @Column(unique = true)
     private String name;
 
+
+
     public Ingredient() {
     }
 

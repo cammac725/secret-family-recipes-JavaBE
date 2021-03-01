@@ -1,5 +1,7 @@
 package com.lambdaschool.secretfamilyrecipes.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -20,6 +22,13 @@ public class Recipe extends Auditable {
 
     @Column
     private String instructions;
+
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "categoryid")
+    @JsonIgnoreProperties(value = "recipes", allowSetters = true)
+    private Recipe recipe;
+
 
     public Recipe() {
     }
@@ -62,4 +71,11 @@ public class Recipe extends Auditable {
         this.instructions = instructions;
     }
 
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 }
