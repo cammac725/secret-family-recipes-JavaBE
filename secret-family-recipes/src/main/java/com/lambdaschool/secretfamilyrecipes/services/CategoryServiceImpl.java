@@ -2,6 +2,7 @@ package com.lambdaschool.secretfamilyrecipes.services;
 
 import com.lambdaschool.secretfamilyrecipes.exceptions.ResourceNotFoundException;
 import com.lambdaschool.secretfamilyrecipes.models.Category;
+import com.lambdaschool.secretfamilyrecipes.models.Recipe;
 import com.lambdaschool.secretfamilyrecipes.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,14 +54,44 @@ public class CategoryServiceImpl implements CategoryService {
         return cat;
     }
 
+    @Transactional
     @Override
     public Category save(Category category) {
-        return null;
+        Category newCategory = new Category();
+
+        if (category.getCategoryid() != 0) {
+            categoryrepos.findById((category.getCategoryid()))
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "Category id " + category.getCategoryid() + " not found"));
+            newCategory.setCategoryid(category.getCategoryid());
+        }
+
+        newCategory.setName(category.getName().toLowerCase());
+
+        newCategory.getRecipes().clear();
+        for (Recipe r : category.getRecipes()) {
+            newCategory.getRecipes().add(new Recipe(newCategory,
+                    r.getName(), r.getSource(), r.getInstructions()));
+        }
+        return categoryrepos.save(newCategory);
     }
 
+    @Transactional
     @Override
     public Category update(Category category, long id) {
-        return null;
+        Category currentCategory = findCategoryById(id);
+
+        if (category.getName() != null) {
+            currentCategory.setName((category.getName().toLowerCase()));
+        }
+        if (category.getRecipes().size() > 0) {
+            currentCategory.getRecipes().clear();
+            for (Recipe r : category.getRecipes()) {
+                currentCategory.getRecipes().add(new Recipe(currentCategory,
+                        r.getName(), r.getSource(), r.getInstructions()));
+            }
+        }
+        return categoryrepos.save(currentCategory);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

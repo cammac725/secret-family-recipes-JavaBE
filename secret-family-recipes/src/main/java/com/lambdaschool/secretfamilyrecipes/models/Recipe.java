@@ -17,7 +17,7 @@ public class Recipe extends Auditable {
     @Column(unique = true)
     private String name;
 
-    @Column(unique = false)
+    @Column
     private String source;
 
     @Column
@@ -27,13 +27,14 @@ public class Recipe extends Auditable {
     @NotNull
     @JoinColumn(name = "categoryid")
     @JsonIgnoreProperties(value = "recipes", allowSetters = true)
-    private Recipe recipe;
+    private Category category;
 
 
     public Recipe() {
     }
 
-    public Recipe(@NotNull String name, String source, String instructions) {
+    public Recipe(@NotNull Category category,  String name, String source, String instructions) {
+        this.category = category;
         this.name = name;
         this.source = source;
         this.instructions = instructions;
@@ -71,11 +72,11 @@ public class Recipe extends Auditable {
         this.instructions = instructions;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
