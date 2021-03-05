@@ -11,6 +11,4 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 
     List<Category> findCategoryContainingIgnoreCase(String name);
 
-    Category addCategory();
-
 }
