@@ -5,9 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RecipeRepository extends CrudRepository<Recipe, Long> {
 
-    Recipe findRecipeByName(String name);
-
-    Recipe addRecipe();
-
-    void updateRecipe();
+//    Recipe findRecipeByName(String name);
+//
+//    Recipe addRecipe();
+//
+//    void updateRecipe();
 }
