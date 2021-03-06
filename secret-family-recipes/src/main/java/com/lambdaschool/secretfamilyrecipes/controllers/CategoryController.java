@@ -21,18 +21,20 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    // http://localhost:2019/categories/categories
     @GetMapping(value = "/categories", produces = "application/json")
     public ResponseEntity<?> listAllCategories() {
         List<Category> catList = categoryService.findAll();
         return new ResponseEntity<>(catList, HttpStatus.OK);
     }
-
+    // http://localhost:2019/categories/{categoryid}
     @GetMapping(value = "/categories/{categoryid}", produces = "application/json")
     public ResponseEntity<?> getCategoryById(@PathVariable Long categoryid) {
         Category cat = categoryService.findCategoryById(categoryid);
         return new ResponseEntity<>(cat, HttpStatus.OK);
     }
 
+    // http://localhost:2019/categories/category
     @PostMapping(value = "/category", consumes = "application/json")
     public ResponseEntity<?> addNewCategory(
             @Valid
