@@ -18,6 +18,9 @@ public class IngredientServiceImpl implements IngredientService{
     @Autowired
     IngredientRepository ingredientrepos;
 
+    @Autowired
+    private UserAuditing userAuditing;
+
     @Override
     public List<Ingredient> findAll() {
         List<Ingredient> ingredList = new ArrayList<>();
@@ -55,5 +58,23 @@ public class IngredientServiceImpl implements IngredientService{
         return ingredientrepos.save(ingredient);
     }
 
-    
+    @Transactional
+    @Override
+    public Ingredient update(long ingredientid, Ingredient ingredient) {
+        if (ingredient.getName() == null) {
+            throw new ResourceNotFoundException("No ingredient name found to update.");
+        }
+        if (ingredient.getRecipes().size() > 0) {
+            throw new ResourceFoundException("Recipe ingredients are not updated through Ingredient");
+        }
+
+        Ingredient newIngredient = findIngredientById(ingredientid);
+
+        ingredientrepos.updateIngredientName(userAuditing.getCurrentAuditor()
+                .get(),
+                ingredientid,
+                ingredient.getName());
+
+        return findIngredientById(ingredientid);
+    }
 }

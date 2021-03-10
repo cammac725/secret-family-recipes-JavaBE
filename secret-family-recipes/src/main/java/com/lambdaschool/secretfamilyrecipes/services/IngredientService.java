@@ -13,4 +13,6 @@ public interface IngredientService {
     Ingredient findByName(String ingredientName);
 
     Ingredient save(Ingredient ingredient);
+
+    Ingredient update(long ingredientid, Ingredient ingredient);
 }

@@ -58,4 +58,15 @@ public class IngredientController {
                 responseHeaders,
                 HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/ingredient/{ingredientid}",
+            consumes = "application/json")
+    public ResponseEntity<?> updateIngredient(
+            @Valid
+            @PathVariable long ingredientid,
+            @RequestBody Ingredient newIngredient) {
+        newIngredient = ingredientService.update(ingredientid,newIngredient);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
