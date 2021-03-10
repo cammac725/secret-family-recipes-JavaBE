@@ -1,10 +1,7 @@
 package com.lambdaschool.secretfamilyrecipes;
 
 import com.lambdaschool.secretfamilyrecipes.models.*;
-import com.lambdaschool.secretfamilyrecipes.services.CategoryService;
-import com.lambdaschool.secretfamilyrecipes.services.RecipeService;
-import com.lambdaschool.secretfamilyrecipes.services.RoleService;
-import com.lambdaschool.secretfamilyrecipes.services.UserService;
+import com.lambdaschool.secretfamilyrecipes.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -39,8 +36,17 @@ public class SeedData
     @Autowired
     CategoryService categoryService;
 
+    /**
+     * Connects the recipe service to this process
+     */
     @Autowired
     RecipeService recipeService;
+
+    /**
+     * Connects the ingredient service to this process
+     */
+    @Autowired
+    IngredientService ingredientService;
 
     /**
      * Generates test, seed data for our application
@@ -132,13 +138,84 @@ public class SeedData
         Ingredient ing29 = new Ingredient("minced onion");
         Ingredient ing30 = new Ingredient("chopped parsley");
 
+        ing1 = ingredientService.save(ing1);
+        ing2 = ingredientService.save(ing2);
+        ing3 = ingredientService.save(ing3);
+        ing4 = ingredientService.save(ing4);
+        ing5 = ingredientService.save(ing5);
+        ing6 = ingredientService.save(ing6);
+        ing7 = ingredientService.save(ing7);
+        ing8 = ingredientService.save(ing8);
+        ing9 = ingredientService.save(ing9);
+        ing10 = ingredientService.save(ing10);
+        ing11 = ingredientService.save(ing11);
+        ing12 = ingredientService.save(ing12);
+        ing13 = ingredientService.save(ing13);
+        ing14 = ingredientService.save(ing14);
+        ing15 = ingredientService.save(ing15);
+        ing16 = ingredientService.save(ing16);
+        ing17 = ingredientService.save(ing17);
+        ing18 = ingredientService.save(ing18);
+        ing19 = ingredientService.save(ing19);
+        ing20 = ingredientService.save(ing20);
+        ing21 = ingredientService.save(ing21);
+        ing22 = ingredientService.save(ing22);
+        ing23 = ingredientService.save(ing23);
+        ing24 = ingredientService.save(ing24);
+        ing25 = ingredientService.save(ing25);
+        ing26 = ingredientService.save(ing26);
+        ing27 = ingredientService.save(ing27);
+        ing28 = ingredientService.save(ing28);
+        ing29 = ingredientService.save(ing29);
+        ing30 = ingredientService.save(ing30);
+
         Recipe rec1 = new Recipe(c1, "Shrimp tacos", "Cousin Juan", "Add together, eat.");
+        rec1.getIngredients().add(new RecipeIngredients(rec1, ing1));
+        rec1.getIngredients().add(new RecipeIngredients(rec1, ing2));
+        rec1.getIngredients().add(new RecipeIngredients(rec1, ing3));
+        rec1.getIngredients().add(new RecipeIngredients(rec1, ing4));
+        rec1.getIngredients().add(new RecipeIngredients(rec1, ing5));
+        rec1.getIngredients().add(new RecipeIngredients(rec1, ing6));
         rec1 = recipeService.save(rec1);
+
         Recipe rec2 = new Recipe(c5, "Broccoli Casserole", "Barb", "Add together, bake, eat");
+        rec2.getIngredients().add(new RecipeIngredients(rec2, ing7));
+        rec2.getIngredients().add(new RecipeIngredients(rec2, ing8));
+        rec2.getIngredients().add(new RecipeIngredients(rec2, ing9));
+        rec2.getIngredients().add(new RecipeIngredients(rec2, ing10));
+        rec2.getIngredients().add(new RecipeIngredients(rec2, ing11));
+        rec2.getIngredients().add(new RecipeIngredients(rec2, ing12));
+        rec2 = recipeService.save(rec2);
+
         Recipe rec3 = new Recipe(c3, "Chocolate Mirror Cake", "Grandma Marge", "Add together, bake, eat");
+        rec3.getIngredients().add(new RecipeIngredients(rec3, ing17));
+        rec3.getIngredients().add(new RecipeIngredients(rec3, ing18));
+        rec3.getIngredients().add(new RecipeIngredients(rec3, ing19));
+        rec3.getIngredients().add(new RecipeIngredients(rec3, ing20));
+        rec3.getIngredients().add(new RecipeIngredients(rec3, ing21));
+        rec3 = recipeService.save(rec3);
+
         Recipe rec4 = new Recipe(c1, "Lasagna", "Aunt Mary", "Add together, bake, eat");
+        rec4.getIngredients().add(new RecipeIngredients(rec4, ing13));
+        rec4.getIngredients().add(new RecipeIngredients(rec4, ing14));
+        rec4.getIngredients().add(new RecipeIngredients(rec4, ing15));
+        rec4.getIngredients().add(new RecipeIngredients(rec4, ing16));
+        rec4 = recipeService.save(rec4);
+
         Recipe rec5 = new Recipe(c4, "Barley Soup", "Judy", "Add together, simmer, eat");
+        rec5.getIngredients().add(new RecipeIngredients(rec5, ing22));
+        rec5.getIngredients().add(new RecipeIngredients(rec5, ing23));
+        rec5.getIngredients().add(new RecipeIngredients(rec5, ing24));
+        rec5.getIngredients().add(new RecipeIngredients(rec5, ing25));
+        rec5 = recipeService.save(rec5);
+
         Recipe rec6 = new Recipe(c2, "Stuffed Mushrooms", "PCC", "Add together, bake, eat");
+        rec6.getIngredients().add(new RecipeIngredients(rec6, ing26));
+        rec6.getIngredients().add(new RecipeIngredients(rec6, ing27));
+        rec6.getIngredients().add(new RecipeIngredients(rec6, ing28));
+        rec6.getIngredients().add(new RecipeIngredients(rec6, ing29));
+        rec6.getIngredients().add(new RecipeIngredients(rec6, ing30));
+        rec6 = recipeService.save(rec6);
 
     }
 }
