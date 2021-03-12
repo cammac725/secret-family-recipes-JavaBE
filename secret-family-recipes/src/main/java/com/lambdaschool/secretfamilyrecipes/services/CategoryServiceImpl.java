@@ -25,11 +25,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new ResourceNotFoundException("Category id " + id + " not found."));
     }
 
-//    @Override
-//    public List<Category> findByNameContaining(String name) {
-//        return categoryrepos.findCategoryContainingIgnoreCase(name.toLowerCase());
-//    }
-
     @Override
     public List<Category> findAll() {
         List<Category> list = new ArrayList<>();

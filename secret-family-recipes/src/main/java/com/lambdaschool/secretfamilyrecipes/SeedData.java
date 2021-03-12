@@ -93,13 +93,18 @@ public class SeedData
         u2.getRoles().add(new UserRoles(u2, r3));
         userService.save(u2);
 
-
 //        categoryService.deleteAll();
         Category c1 = new Category("entree");
+        c1.getRecipes().add(new Recipe(c1, "Shrimp Tacos", "Cousin Juan", "Add together, eat."));
+        c1.getRecipes().add(new Recipe(c1, "Lasagna", "Aunt Mary", "Add together, bake, eat"));
         Category c2 = new Category("appetizer");
+        c2.getRecipes().add(new Recipe(c2, "Stuffed Mushrooms", "PCC", "Add together, bake, eat"));
         Category c3 = new Category("dessert");
+        c3.getRecipes().add(new Recipe(c3, "Chocolate Mirror Cake", "Grandma Marge", "Add together, bake, eat"));
         Category c4 = new Category("soup");
+        c4.getRecipes().add(new Recipe(c4, "Barley Soup", "Judy", "Add together, simmer, eat"));
         Category c5 = new Category("vegan");
+        c5.getRecipes().add(new Recipe(c5, "Broccoli Casserole", "Barb", "Add together, bake, eat"));
 
         c1 = categoryService.save(c1);
         c2 = categoryService.save(c2);
