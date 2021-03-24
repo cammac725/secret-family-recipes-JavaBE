@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface RecipeRepository extends CrudRepository<Recipe, Long> {
-    List<Recipe> findByNameContainingIgnoreCase(String toLowerCase);
+    List<Recipe> findByRecipenameContainingIgnoreCase(String toLowerCase);
 
 //    Recipe findRecipeByName(String name);
 //

@@ -17,7 +17,7 @@ public class Recipe extends Auditable {
 
     @NotNull
     @Column(unique = true)
-    private String name;
+    private String recipename;
 
     @Column
     private String source;
@@ -25,7 +25,7 @@ public class Recipe extends Auditable {
     @Column
     private String instructions;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @NotNull
     @JoinColumn(name = "categoryid")
     @JsonIgnoreProperties(value = "recipes", allowSetters = true)
@@ -40,9 +40,9 @@ public class Recipe extends Auditable {
     public Recipe() {
     }
 
-    public Recipe(@NotNull Category category,  String name, String source, String instructions) {
+    public Recipe(Category category, @NotNull String name, String source, String instructions) {
         this.category = category;
-        this.name = name;
+        this.recipename = name;
         this.source = source;
         this.instructions = instructions;
     }
@@ -55,12 +55,12 @@ public class Recipe extends Auditable {
         this.recipeid = recipeid;
     }
 
-    public String getName() {
-        return name;
+    public String getRecipename() {
+        return recipename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRecipename(String name) {
+        this.recipename = name;
     }
 
     public String getSource() {

@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, Long> {
 
-    Ingredient findByNameIgnoreCase(String ingredientName);
+    Ingredient findByIngredientnameIgnoreCase(String ingredientName);
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE ingredients SET name = :name, lastmodifiedby = :uname, lastmodifieddate = CURRENT_TIMESTAMP WHERE ingredientid = :ingredientid",
+    @Query(value = "UPDATE ingredients SET ingredientname = :name, lastmodifiedby = :uname, lastmodifieddate = CURRENT_TIMESTAMP WHERE ingredientid = :ingredientid",
         nativeQuery = true)
     void updateIngredientName(String uname, long ingredientid, String name);
 

@@ -7,63 +7,37 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * SeedData puts both known and random data into the database. It implements CommandLineRunner.
- * <p>
- * CoomandLineRunner: Spring Boot automatically runs the run method once and only once
- * after the application context has been loaded.
- */
 @Transactional
 @Component
 public class SeedData
     implements CommandLineRunner
 {
-    /**
-     * Connects the Role Service to this process
-     */
+
     @Autowired
     RoleService roleService;
 
-    /**
-     * Connects the user service to this process
-     */
     @Autowired
     UserService userService;
 
-    /**
-     * Connects the category service to this process
-     */
     @Autowired
     CategoryService categoryService;
 
-    /**
-     * Connects the recipe service to this process
-     */
     @Autowired
     RecipeService recipeService;
 
-    /**
-     * Connects the ingredient service to this process
-     */
     @Autowired
     IngredientService ingredientService;
 
-    /**
-     * Generates test, seed data for our application
-     * First a set of known data is seeded into our database.
-     * Second a random set of data using Java Faker is seeded into our database.
-     * Note this process does not remove data from the database. So if data exists in the database
-     * prior to running this process, that data remains in the database.
-     *
-     * @param args The parameter is required by the parent interface but is not used in this process.
-     */
     @Transactional
     @Override
-    public void run(String[] args) throws
-                                   Exception
+    public void run(String[] args) throws Exception
     {
 //        userService.deleteAll();
 //        roleService.deleteAll();
+//        categoryService.deleteAll();
+//        recipeService.deleteAll();
+//        ingredientService.deleteAll();
+
         Role r1 = new Role("admin");
         Role r2 = new Role("user");
         Role r3 = new Role("data");
@@ -71,7 +45,6 @@ public class SeedData
         r1 = roleService.save(r1);
         r2 = roleService.save(r2);
         r3 = roleService.save(r3);
-
 
         // admin, data, user
         User u1 = new User("admin",
@@ -82,7 +55,6 @@ public class SeedData
         u1.getRoles().add(new UserRoles(u1, r3));
         u1.getUseremails().add(new Useremail(u1, "admin@email.local"));
         u1.getUseremails().add(new Useremail(u1, "admin@mymail.local"));
-
         userService.save(u1);
 
         // data, user
@@ -92,25 +64,6 @@ public class SeedData
         u2.getRoles().add(new UserRoles(u2, r2));
         u2.getRoles().add(new UserRoles(u2, r3));
         userService.save(u2);
-
-//        categoryService.deleteAll();
-        Category c1 = new Category("entree");
-        c1.getRecipes().add(new Recipe(c1, "Shrimp Tacos", "Cousin Juan", "Add together, eat."));
-        c1.getRecipes().add(new Recipe(c1, "Lasagna", "Aunt Mary", "Add together, bake, eat"));
-        Category c2 = new Category("appetizer");
-        c2.getRecipes().add(new Recipe(c2, "Stuffed Mushrooms", "PCC", "Add together, bake, eat"));
-        Category c3 = new Category("dessert");
-        c3.getRecipes().add(new Recipe(c3, "Chocolate Mirror Cake", "Grandma Marge", "Add together, bake, eat"));
-        Category c4 = new Category("soup");
-        c4.getRecipes().add(new Recipe(c4, "Barley Soup", "Judy", "Add together, simmer, eat"));
-        Category c5 = new Category("vegan");
-        c5.getRecipes().add(new Recipe(c5, "Broccoli Casserole", "Barb", "Add together, bake, eat"));
-
-        c1 = categoryService.save(c1);
-        c2 = categoryService.save(c2);
-        c3 = categoryService.save(c3);
-        c4 = categoryService.save(c4);
-        c5 = categoryService.save(c5);
 
         Ingredient ing1 = new Ingredient("corn tortillas");
         Ingredient ing2 = new Ingredient("shrimp");
@@ -174,53 +127,85 @@ public class SeedData
         ing29 = ingredientService.save(ing29);
         ing30 = ingredientService.save(ing30);
 
-        Recipe rec1 = new Recipe(c1, "Shrimp tacos", "Cousin Juan", "Add together, eat.");
-        rec1.getIngredients().add(new RecipeIngredients(rec1, ing1));
-        rec1.getIngredients().add(new RecipeIngredients(rec1, ing2));
-        rec1.getIngredients().add(new RecipeIngredients(rec1, ing3));
-        rec1.getIngredients().add(new RecipeIngredients(rec1, ing4));
-        rec1.getIngredients().add(new RecipeIngredients(rec1, ing5));
-        rec1.getIngredients().add(new RecipeIngredients(rec1, ing6));
-        rec1 = recipeService.save(rec1);
+        Category c1 = new Category("entree");
+        c1.getRecipes().add(new Recipe(c1,"Shrimp tacos", "Cousin Juan", "Add together, eat."));
+        c1.getRecipes().add(new Recipe(c1, "Lasagna", "Aunt Mary", "Add together, bake, eat"));
 
-        Recipe rec2 = new Recipe(c5, "Broccoli Casserole", "Barb", "Add together, bake, eat");
-        rec2.getIngredients().add(new RecipeIngredients(rec2, ing7));
-        rec2.getIngredients().add(new RecipeIngredients(rec2, ing8));
-        rec2.getIngredients().add(new RecipeIngredients(rec2, ing9));
-        rec2.getIngredients().add(new RecipeIngredients(rec2, ing10));
-        rec2.getIngredients().add(new RecipeIngredients(rec2, ing11));
-        rec2.getIngredients().add(new RecipeIngredients(rec2, ing12));
-        rec2 = recipeService.save(rec2);
+        Category c2 = new Category("appetizer");
+        c2.getRecipes().add(new Recipe(c2, "Stuffed Mushrooms", "PCC", "Add together, bake, eat"));
 
-        Recipe rec3 = new Recipe(c3, "Chocolate Mirror Cake", "Grandma Marge", "Add together, bake, eat");
-        rec3.getIngredients().add(new RecipeIngredients(rec3, ing17));
-        rec3.getIngredients().add(new RecipeIngredients(rec3, ing18));
-        rec3.getIngredients().add(new RecipeIngredients(rec3, ing19));
-        rec3.getIngredients().add(new RecipeIngredients(rec3, ing20));
-        rec3.getIngredients().add(new RecipeIngredients(rec3, ing21));
-        rec3 = recipeService.save(rec3);
+        Category c3 = new Category("dessert");
+        c3.getRecipes().add(new Recipe(c3, "Chocolate Mirror Cake", "Grandma Marge", "Add together, bake, eat"));
 
-        Recipe rec4 = new Recipe(c1, "Lasagna", "Aunt Mary", "Add together, bake, eat");
-        rec4.getIngredients().add(new RecipeIngredients(rec4, ing13));
-        rec4.getIngredients().add(new RecipeIngredients(rec4, ing14));
-        rec4.getIngredients().add(new RecipeIngredients(rec4, ing15));
-        rec4.getIngredients().add(new RecipeIngredients(rec4, ing16));
-        rec4 = recipeService.save(rec4);
+        Category c4 = new Category("soup");
+        c4.getRecipes().add(new Recipe(c4, "Barley Soup", "Judy", "Add together, simmer, eat"));
 
-        Recipe rec5 = new Recipe(c4, "Barley Soup", "Judy", "Add together, simmer, eat");
-        rec5.getIngredients().add(new RecipeIngredients(rec5, ing22));
-        rec5.getIngredients().add(new RecipeIngredients(rec5, ing23));
-        rec5.getIngredients().add(new RecipeIngredients(rec5, ing24));
-        rec5.getIngredients().add(new RecipeIngredients(rec5, ing25));
-        rec5 = recipeService.save(rec5);
+        Category c5 = new Category("vegan");
+        c5.getRecipes().add(new Recipe(c5, "Broccoli Casserole", "Barb", "Add together, bake, eat"));
 
-        Recipe rec6 = new Recipe(c2, "Stuffed Mushrooms", "PCC", "Add together, bake, eat");
-        rec6.getIngredients().add(new RecipeIngredients(rec6, ing26));
-        rec6.getIngredients().add(new RecipeIngredients(rec6, ing27));
-        rec6.getIngredients().add(new RecipeIngredients(rec6, ing28));
-        rec6.getIngredients().add(new RecipeIngredients(rec6, ing29));
-        rec6.getIngredients().add(new RecipeIngredients(rec6, ing30));
-        rec6 = recipeService.save(rec6);
+        categoryService.save(c1);
+        categoryService.save(c2);
+        categoryService.save(c3);
+        categoryService.save(c4);
+        categoryService.save(c5);
+
+
+
+//        Recipe rec1 = new Recipe(c1,"Shrimp tacos", "Cousin Juan", "Add together, eat.");
+//        rec1.getIngredients().add(new RecipeIngredients(rec1, ing1));
+//        rec1.getIngredients().add(new RecipeIngredients(rec1, ing2));
+//        rec1.getIngredients().add(new RecipeIngredients(rec1, ing3));
+//        rec1.getIngredients().add(new RecipeIngredients(rec1, ing4));
+//        rec1.getIngredients().add(new RecipeIngredients(rec1, ing5));
+//        rec1.getIngredients().add(new RecipeIngredients(rec1, ing6));
+//        recipeService.save(rec1);
+//
+//        Recipe rec2 = new Recipe(c5, "Broccoli Casserole", "Barb", "Add together, bake, eat");
+//        rec2.getIngredients().add(new RecipeIngredients(rec2, ing7));
+//        rec2.getIngredients().add(new RecipeIngredients(rec2, ing8));
+//        rec2.getIngredients().add(new RecipeIngredients(rec2, ing9));
+//        rec2.getIngredients().add(new RecipeIngredients(rec2, ing10));
+//        rec2.getIngredients().add(new RecipeIngredients(rec2, ing11));
+//        rec2.getIngredients().add(new RecipeIngredients(rec2, ing12));
+//        recipeService.save(rec2);
+//
+//        Recipe rec3 = new Recipe(c3, "Chocolate Mirror Cake", "Grandma Marge", "Add together, bake, eat");
+//        rec3.getIngredients().add(new RecipeIngredients(rec3, ing17));
+//        rec3.getIngredients().add(new RecipeIngredients(rec3, ing18));
+//        rec3.getIngredients().add(new RecipeIngredients(rec3, ing19));
+//        rec3.getIngredients().add(new RecipeIngredients(rec3, ing20));
+//        rec3.getIngredients().add(new RecipeIngredients(rec3, ing21));
+//        recipeService.save(rec3);
+//
+//        Recipe rec4 = new Recipe(c1, "Lasagna", "Aunt Mary", "Add together, bake, eat");
+//        rec4.getIngredients().add(new RecipeIngredients(rec4, ing13));
+//        rec4.getIngredients().add(new RecipeIngredients(rec4, ing14));
+//        rec4.getIngredients().add(new RecipeIngredients(rec4, ing15));
+//        rec4.getIngredients().add(new RecipeIngredients(rec4, ing16));
+//        rec4.getIngredients().add(new RecipeIngredients(rec4, ing3));
+//        recipeService.save(rec4);
+//
+//        Recipe rec5 = new Recipe(c4, "Barley Soup", "Judy", "Add together, simmer, eat");
+//        rec5.getIngredients().add(new RecipeIngredients(rec5, ing22));
+//        rec5.getIngredients().add(new RecipeIngredients(rec5, ing23));
+//        rec5.getIngredients().add(new RecipeIngredients(rec5, ing24));
+//        rec5.getIngredients().add(new RecipeIngredients(rec5, ing25));
+//        recipeService.save(rec5);
+//
+//        Recipe rec6 = new Recipe(c2, "Stuffed Mushrooms", "PCC", "Add together, bake, eat");
+//        rec6.getIngredients().add(new RecipeIngredients(rec6, ing26));
+//        rec6.getIngredients().add(new RecipeIngredients(rec6, ing27));
+//        rec6.getIngredients().add(new RecipeIngredients(rec6, ing28));
+//        rec6.getIngredients().add(new RecipeIngredients(rec6, ing29));
+//        rec6.getIngredients().add(new RecipeIngredients(rec6, ing30));
+//        recipeService.save(rec6);
+
+//        c1.getRecipes().add(rec1);
+//        c1.getRecipes().add(rec4);
+//        c2.getRecipes().add(rec6);
+//        c3.getRecipes().add(rec3);
+//        c4.getRecipes().add(rec5);
+//        c5.getRecipes().add(rec2);
 
     }
 }

@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
         newCategory.getRecipes().clear();
         for (Recipe r : category.getRecipes()) {
             newCategory.getRecipes().add(new Recipe(newCategory,
-                    r.getName(), r.getSource(), r.getInstructions()));
+                    r.getRecipename(), r.getSource(), r.getInstructions()));
         }
         return categoryrepos.save(newCategory);
     }
@@ -83,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
             currentCategory.getRecipes().clear();
             for (Recipe r : category.getRecipes()) {
                 currentCategory.getRecipes().add(new Recipe(currentCategory,
-                        r.getName(), r.getSource(), r.getInstructions()));
+                        r.getRecipename(), r.getSource(), r.getInstructions()));
             }
         }
         return categoryrepos.save(currentCategory);

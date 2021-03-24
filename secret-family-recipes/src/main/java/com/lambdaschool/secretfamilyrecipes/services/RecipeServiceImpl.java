@@ -7,6 +7,7 @@ import com.lambdaschool.secretfamilyrecipes.models.RecipeIngredients;
 import com.lambdaschool.secretfamilyrecipes.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public List<Recipe> findByNameContaining(String recipeName) {
-        return reciperepos.findByNameContainingIgnoreCase(recipeName.toLowerCase());
+        return reciperepos.findByRecipenameContainingIgnoreCase(recipeName.toLowerCase());
     }
 
     @Transactional
@@ -62,8 +63,8 @@ public class RecipeServiceImpl implements RecipeService {
             newRecipe.setRecipeid(recipe.getRecipeid());
         }
 
-        newRecipe.setName(recipe.getName().toLowerCase());
         newRecipe.setCategory(recipe.getCategory());
+        newRecipe.setRecipename(recipe.getRecipename().toLowerCase());
         newRecipe.setSource(recipe.getSource());
         newRecipe.setInstructions(recipe.getInstructions());
 
@@ -81,8 +82,8 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe update(Recipe recipe, long id) {
         Recipe currentRecipe = findRecipeById(id);
-        if (recipe.getName() != null) {
-            currentRecipe.setName(recipe.getName().toLowerCase());
+        if (recipe.getRecipename() != null) {
+            currentRecipe.setRecipename(recipe.getRecipename().toLowerCase());
         }
         currentRecipe.setCategory(recipe.getCategory());
         currentRecipe.setSource(recipe.getSource());
@@ -98,5 +99,11 @@ public class RecipeServiceImpl implements RecipeService {
             }
         }
         return reciperepos.save(currentRecipe);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void deleteAll() {
+        reciperepos.deleteAll();
     }
 }
