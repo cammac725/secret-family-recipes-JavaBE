@@ -27,8 +27,8 @@ public class CategoryController {
         List<Category> catList = categoryService.findAll();
         return new ResponseEntity<>(catList, HttpStatus.OK);
     }
-    // http://localhost:2019/categories/{categoryid}
-    @GetMapping(value = "/categories/{categoryid}", produces = "application/json")
+    // http://localhost:2019/categories//category/{categoryid}
+    @GetMapping(value = "/category/{categoryid}", produces = "application/json")
     public ResponseEntity<?> getCategoryById(@PathVariable Long categoryid) {
         Category cat = categoryService.findCategoryById(categoryid);
         return new ResponseEntity<>(cat, HttpStatus.OK);

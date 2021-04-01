@@ -2,7 +2,9 @@ package com.lambdaschool.secretfamilyrecipes.services;
 
 import com.lambdaschool.secretfamilyrecipes.exceptions.ResourceNotFoundException;
 import com.lambdaschool.secretfamilyrecipes.models.Category;
+import com.lambdaschool.secretfamilyrecipes.models.Ingredient;
 import com.lambdaschool.secretfamilyrecipes.models.Recipe;
+import com.lambdaschool.secretfamilyrecipes.models.RecipeIngredients;
 import com.lambdaschool.secretfamilyrecipes.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,16 +21,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryrepos;
 
+    @Autowired
+    private IngredientService ingredientService;
+
     @Override
     public Category findCategoryById(long id) throws ResourceNotFoundException {
         return categoryrepos.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category id " + id + " not found."));
     }
-
-//    @Override
-//    public List<Category> findByNameContaining(String name) {
-//        return categoryrepos.findCategoryContainingIgnoreCase(name.toLowerCase());
-//    }
 
     @Override
     public List<Category> findAll() {
@@ -70,8 +70,13 @@ public class CategoryServiceImpl implements CategoryService {
 
         newCategory.getRecipes().clear();
         for (Recipe r : category.getRecipes()) {
-            newCategory.getRecipes().add(new Recipe(newCategory,
-                    r.getName(), r.getSource(), r.getInstructions()));
+            Recipe newRecipe = new Recipe(newCategory,
+                    r.getRecipename(), r.getSource(), r.getInstructions());
+            for (RecipeIngredients i : r.getIngredients()) {
+                Ingredient ing = ingredientService.findIngredientById(i.getIngredient().getIngredientid());
+                newRecipe.getIngredients().add(new RecipeIngredients(newRecipe, ing));
+            }
+            newCategory.getRecipes().add(newRecipe);
         }
         return categoryrepos.save(newCategory);
     }
@@ -88,7 +93,7 @@ public class CategoryServiceImpl implements CategoryService {
             currentCategory.getRecipes().clear();
             for (Recipe r : category.getRecipes()) {
                 currentCategory.getRecipes().add(new Recipe(currentCategory,
-                        r.getName(), r.getSource(), r.getInstructions()));
+                        r.getRecipename(), r.getSource(), r.getInstructions()));
             }
         }
         return categoryrepos.save(currentCategory);

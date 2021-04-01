@@ -17,4 +17,6 @@ public interface RecipeService {
     Recipe update(Recipe recipe, long id);
 
     List<Recipe> findByNameContaining(String recipeName);
+
+    void deleteAll();
 }

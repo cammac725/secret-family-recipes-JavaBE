@@ -25,7 +25,6 @@ public class Category extends Auditable {
     @JsonIgnoreProperties(value = "category", allowSetters = true)
     private List<Recipe> recipes = new ArrayList<>();
 
-
     public Category() {
     }
 

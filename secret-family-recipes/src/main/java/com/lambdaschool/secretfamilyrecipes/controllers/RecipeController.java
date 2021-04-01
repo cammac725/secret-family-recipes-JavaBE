@@ -21,15 +21,16 @@ public class RecipeController {
     @Autowired
     private RecipeService recipeService;
 
+    // http://localhost:2019/recipes/recipes
     @GetMapping(value = "/recipes", produces = "application/json")
     public ResponseEntity<?> listAllRecipes() {
         List<Recipe> myList = recipeService.findAll();
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/recipes/{recipeId}", produces = "application/json")
-    public ResponseEntity<?> getRecipeById(@PathVariable Long recipeId) {
-        Recipe r = recipeService.findRecipeById(recipeId);
+    @GetMapping(value = "/recipe/{recipeid}", produces = "application/json")
+    public ResponseEntity<?> getRecipeById(@PathVariable Long recipeid) {
+        Recipe r = recipeService.findRecipeById(recipeid);
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
 

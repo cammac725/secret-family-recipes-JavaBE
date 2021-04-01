@@ -17,7 +17,7 @@ public class Ingredient extends Auditable {
 
     @NotNull
     @Column(unique = true)
-    private String name;
+    private String ingredientname;
 
     @OneToMany(mappedBy = "ingredient",
         cascade = CascadeType.ALL,
@@ -28,8 +28,8 @@ public class Ingredient extends Auditable {
     public Ingredient() {
     }
 
-    public Ingredient(@NotNull String name) {
-        this.name = name;
+    public Ingredient(@NotNull String ingredientname) {
+        this.ingredientname = ingredientname;
     }
 
     public long getIngredientid() {
@@ -41,11 +41,11 @@ public class Ingredient extends Auditable {
     }
 
     public String getName() {
-        return name;
+        return ingredientname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String ingredientname) {
+        this.ingredientname = ingredientname;
     }
 
     public Set<RecipeIngredients> getRecipes() {

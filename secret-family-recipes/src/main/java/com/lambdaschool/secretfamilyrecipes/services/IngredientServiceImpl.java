@@ -6,6 +6,7 @@ import com.lambdaschool.secretfamilyrecipes.models.Ingredient;
 import com.lambdaschool.secretfamilyrecipes.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class IngredientServiceImpl implements IngredientService{
 
     @Override
     public Ingredient findByName(String ingredientName) {
-        Ingredient ingred = ingredientrepos.findByNameIgnoreCase(ingredientName);
+        Ingredient ingred = ingredientrepos.findByIngredientnameIgnoreCase(ingredientName);
         if (ingred != null) {
             return ingred;
         } else {
@@ -76,5 +77,11 @@ public class IngredientServiceImpl implements IngredientService{
                 ingredient.getName());
 
         return findIngredientById(ingredientid);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void deleteAll() {
+        ingredientrepos.deleteAll();
     }
 }
