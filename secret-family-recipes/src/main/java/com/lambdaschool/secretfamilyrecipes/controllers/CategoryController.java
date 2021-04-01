@@ -44,7 +44,7 @@ public class CategoryController {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newCategoryURI = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{categoryid")
+                .path("/{categoryid}")
                 .buildAndExpand(newcategory.getCategoryid())
                 .toUri();
         responseHeaders.setLocation(newCategoryURI);

@@ -106,4 +106,5 @@ public class RecipeServiceImpl implements RecipeService {
     public void deleteAll() {
         reciperepos.deleteAll();
     }
+
 }
