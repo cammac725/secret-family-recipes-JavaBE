@@ -1,6 +1,7 @@
 package com.lambdaschool.secretfamilyrecipes.services;
 
 import com.lambdaschool.secretfamilyrecipes.SecretFamilyRecipesApplication;
+import com.lambdaschool.secretfamilyrecipes.exceptions.ResourceNotFoundException;
 import com.lambdaschool.secretfamilyrecipes.models.Recipe;
 import org.junit.After;
 import org.junit.Before;
@@ -53,16 +54,24 @@ public class RecipeServiceImplTest {
     @Test
     public void findRecipeById() {
         assertEquals("test-tacos",
-                recipeService.findRecipeById(39)
-                        .getRecipename());
+                recipeService.findRecipeById(39).getRecipename());
+    }
+
+    @Test(expected = ResourceNotFoundException.class)
+    public void findRecipeByIdNotFound() {
+        assertEquals("test-tacos",
+                recipeService.findRecipeById(2).getRecipename());
     }
 
     @Test
     public void findByNameContaining() {
+        assertEquals(3, recipeService.findByNameContaining("co").size());
     }
 
     @Test
     public void deleteById() {
+        recipeService.deleteById(39);
+        assertEquals(4, recipeService.findAll().size());
     }
 
     @Test
