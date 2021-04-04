@@ -2,7 +2,7 @@ package com.lambdaschool.secretfamilyrecipes.services;
 
 import com.lambdaschool.secretfamilyrecipes.SecretFamilyRecipesApplication;
 import com.lambdaschool.secretfamilyrecipes.exceptions.ResourceNotFoundException;
-import com.lambdaschool.secretfamilyrecipes.models.Recipe;
+import com.lambdaschool.secretfamilyrecipes.models.Category;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,20 +16,21 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SecretFamilyRecipesApplication.class)
-public class RecipeServiceImplTest {
+public class CategoryServiceImplTest {
 
     @Autowired
-    private RecipeService recipeService;
+    private CategoryService categoryService;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        List<Recipe> recipeList = recipeService.findAll();
-        for (Recipe r : recipeList) {
-            System.out.println(r.getRecipeid() + " " + r.getRecipename());
+        List<Category> categoryList = categoryService.findAll();
+        for (Category c : categoryList) {
+            System.out.println(c.getCategoryid() + " " + c.getName());
         }
     }
 
@@ -38,30 +39,28 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void findAll() {
-        assertEquals(6, recipeService.findAll().size());
-    }
-
-    @Test
-    public void findRecipeById() {
-        assertEquals("test-tacos",
-                recipeService.findRecipeById(39).getRecipename());
+    public void findCategoryById() {
+        assertEquals("entree", categoryService.findCategoryById(38).getName());
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void findRecipeByIdNotFound() {
-        assertEquals("test-tacos",
-                recipeService.findRecipeById(2).getRecipename());
+    public void findCategoryByIdNotFound() {
+        assertEquals("entree", categoryService.findCategoryById(3).getName());
     }
 
     @Test
-    public void findByNameContaining() {
-        assertEquals(3, recipeService.findByNameContaining("co").size());
+    public void findAll() {
+        assertEquals(5, categoryService.findAll().size());
     }
 
     @Test
     public void deleteById() {
-        recipeService.deleteById(39);
-        assertEquals(4, recipeService.findAll().size());
+        categoryService.deleteById(41);
+        assertEquals(4, categoryService.findAll().size());
+    }
+
+    @Test
+    public void findByName() {
+        assertEquals(38, categoryService.findByName("entree").getCategoryid());
     }
 }
